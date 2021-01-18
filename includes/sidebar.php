@@ -49,7 +49,7 @@
                 <input type="text" class="form-control" name="username" placeholder="Enter username">
             </div><!-- /.form-group -->
             <div class="form-group">
-                <input type="text" class="form-control" name="password" placeholder="Enter password">
+                <input type="password" class="form-control" name="password" placeholder="Enter password">
             </div><!-- /.form-group -->
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" name="login" value="Login">
