@@ -3,9 +3,9 @@
         <tr>
             <th>ID</th>
             <th>Username</th>
-            <th>Email</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Email</th>
             <th>Roles</th>
             <th>Image</th>
             <th>Switch Roles</th>

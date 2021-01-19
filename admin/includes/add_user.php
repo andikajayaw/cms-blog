@@ -53,8 +53,8 @@
         <label for="roles">Roles</label>
         <select name="roles" id="" class="form-control">
             <option disabled selected value="subscriber">Select Option</option>
-            <option value="admin">Admin</option>
-            <option value="subcriber">Subscriber</option>
+            <option value="ADMIN">Admin</option>
+            <option value="SUBSCRIBER">Subscriber</option>
         </select>
     </div>
 

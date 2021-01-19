@@ -24,10 +24,9 @@
         }
 
         if($username !== $user_name && $password !== $user_password)  {
-            // echo "<h1>LOGIN FAILED. CHECK YOUR CREDENTIALS!</h1>";
             header("Location: ../index.php");
-        } else if($username == $user_name && $password == $user_password) {
-            $_SESSION['id'] = $id_user;
+        } else if($username === $user_name && $password === $user_password) {
+            $_SESSION['id_user'] = $id_user;
             $_SESSION['username'] = $user_name;
             $_SESSION['first_name'] = $first_name;
             $_SESSION['last_name'] = $last_name;
