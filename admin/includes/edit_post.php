@@ -48,7 +48,8 @@
 
             $stmt = mysqli_query($connection, $queryUpdate);
             confirm($stmt);
-            header("Location: posts.php");
+            echo "<p class='bg-success'>Post updated! <a href='posts.php'>View Posts</a></p>";
+            // header("Location: posts.php");
         }
     }
 

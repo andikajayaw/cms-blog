@@ -36,7 +36,8 @@
             $stmt = mysqli_query($connection, $query);
     
             confirm($stmt);
-            header("Location: users.php");
+            echo "<p class='bg-success'>Users updated! <a href='users.php'>View Users</a></p>";
+            // header("Location: users.php");
         }
     }
 

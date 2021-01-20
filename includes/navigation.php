@@ -32,12 +32,19 @@
                     <li>
                         <a href="admin">Admin</a>
                     </li>
-                    <!-- <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li> -->
+                    <?php 
+                        if(isset($_SESSION['roles'])) {
+                            if($_SESSION['roles'] == 'admin') {
+                                if(isset($_GET['id'])) {
+                                    $id = $_GET['id'];
+                                    echo 
+                                    "<li>
+                                        <a href='admin/posts.php?source=edit_post&id={$id}'>Edit Post</a>
+                                    </li>";
+                                }
+                            }
+                        }
+                    ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

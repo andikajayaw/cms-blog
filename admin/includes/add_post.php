@@ -19,8 +19,8 @@
         $stmt = mysqli_query($connection, $query);
 
         confirm($stmt);
-
-        header("Location: posts.php");
+        echo "<p class='bg-success'>New post has been added! <a href='posts.php'>View Posts</a></p>";
+        // header("Location: posts.php");
     }
 
 ?>

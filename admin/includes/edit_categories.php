@@ -28,6 +28,7 @@
                 if(!$stmt) {
                     die("QUERY FAILED".mysqli_error($connection));
                 }
+                // echo "<p>Category updated! </p>";
                 header("Location: categories.php");
             }
         ?>

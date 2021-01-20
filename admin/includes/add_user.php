@@ -18,9 +18,10 @@
         $stmt = mysqli_query($connection, $query);
 
         confirm($stmt);
+        // echo "User created: ". " " ." <a href='users.php'>View users</a>";
+        echo "<p class='bg-success'>New user has been added! <a href='users.php'>View users</a></p>";
         // header("Location: users.php");
 
-        echo "User created: ". " " ." <a href='users.php'>View users</a>";
     }
 
 ?>

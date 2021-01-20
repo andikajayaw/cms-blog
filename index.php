@@ -45,7 +45,9 @@
                         </p>
                         <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $date; ?></p>
                         <hr>
-                        <img class="img-responsive" src="images/<?php echo $image; ?>" alt="">
+                        <a href="post.php?id=<?php echo $id_post; ?>">
+                            <img class="img-responsive" src="images/<?php echo $image; ?>" alt="">
+                        </a>
                         <hr>
                         <p><?php echo $description; ?>...</p>
                         <a class="btn btn-primary" href="post.php?id=<?php echo $id_post; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
