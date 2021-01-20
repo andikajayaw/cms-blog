@@ -54,7 +54,7 @@ if(isset($_POST['submit_bulk'])) {
         </div>
         <thead>
             <tr>
-                <th><input type="checkbox" name="selectAll" id="selectAll"></th>
+                <th><input type="checkbox" name="selectAll" id="selectAll" class="select"></th>
                 <th>ID</th>
                 <th>Author</th>
                 <th>Title</th>
