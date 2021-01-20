@@ -69,7 +69,7 @@
 
     <div class="form-group">
         <label for="image">Post Description</label>
-        <textarea name="description" id="" cols="30" rows="10" class="form-control"></textarea>
+        <textarea name="description" id="body" cols="30" rows="10" class="form-control"></textarea>
     </div>
 
     <div class="form-group">

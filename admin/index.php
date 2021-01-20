@@ -148,6 +148,10 @@
                 </div>
 
                 <?php 
+                    $queryPublished = "SELECT * FROM posts WHERE status = 'published'";
+                    $stmtPublished = mysqli_query($connection, $queryPublished);
+                    $total_published_post = mysqli_num_rows($stmtPublished);
+
                     $queryDraft = "SELECT * FROM posts WHERE status = 'draft'";
                     $stmtDraft = mysqli_query($connection, $queryDraft);
                     $total_draft_post = mysqli_num_rows($stmtDraft);
@@ -170,8 +174,8 @@
                                 var data = google.visualization.arrayToDataTable([
                                 ['Data', 'Total'],
                                 <?php 
-                                    $elements_text = ['Categories', 'Active Post', 'Draft Post',  'Users Admin', 'Users Subscriber', 'Active Comments', 'Draft Comments'];
-                                    $elements_count = [$total_categories, $total_post, $total_draft_post, $total_users, $total_subs_user, $total_comments, $total_unapp_comment];
+                                    $elements_text = ['Categories', 'All Post', 'Publish Post', 'Draft Post',  'Users Admin', 'Users Subscriber', 'Active Comments', 'Draft Comments'];
+                                    $elements_count = [$total_categories, $total_post, $total_published_post, $total_draft_post, $total_users, $total_subs_user, $total_comments, $total_unapp_comment];
 
                                     for($i = 0; $i < count($elements_text); $i++) {
                                         echo "['{$elements_text[$i]}'". "," . "{$elements_count[$i]}],";

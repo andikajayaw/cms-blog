@@ -18,7 +18,9 @@
         $stmt = mysqli_query($connection, $query);
 
         confirm($stmt);
-        header("Location: users.php");
+        // header("Location: users.php");
+
+        echo "User created: ". " " ." <a href='users.php'>View users</a>";
     }
 
 ?>

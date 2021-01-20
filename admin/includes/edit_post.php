@@ -82,9 +82,26 @@
         <input type="text" name="author" class="form-control" value="<?php echo $author; ?>" >
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="status">Post Status</label>
         <input type="text" name="status" class="form-control" value="<?php echo $status; ?>">
+    </div> -->
+
+    <div class="form-group">
+        <label for="status">Post Status</label>
+        <select name="status" id="" class="form-control">
+            <option selected value="<?php echo $status; ?>">
+                <?php echo strtoupper($status); ?>
+            </option>
+            <?php 
+                if($status == 'draft') {
+                    echo "<option value='published'>PUBLISHED</option>";
+                } else if($status == 'published') {
+                    echo "<option value='draft'>DRAFT</option>";
+                }
+            
+            ?>
+        </select>
     </div>
 
     <div class="form-group">
@@ -99,7 +116,7 @@
 
     <div class="form-group">
         <label for="image">Post Description</label>
-        <textarea name="description" cols="30" rows="10" class="form-control"><?php echo $description; ?></textarea>
+        <textarea name="description" id="body" cols="30" rows="10" class="form-control"><?php echo $description; ?></textarea>
     </div>
 
     <div class="form-group">

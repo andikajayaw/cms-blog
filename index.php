@@ -26,9 +26,7 @@
                         $image = $row['image'];
                         $status = $row['status'];
 
-                        if($status !== 'published') {
-                            echo "<h1 class='text-center'>No Matching Records!</h1>";
-                        } else {
+                        if($status == 'published') {
 
                         ?>
 
@@ -53,7 +51,8 @@
                         <a class="btn btn-primary" href="post.php?id=<?php echo $id_post; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                         <hr>
-                <?php } }?>
+                <?php } 
+            }?>
 
 
             </div>
