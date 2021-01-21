@@ -44,11 +44,11 @@
             $queryUpdate = "
             UPDATE posts SET title = '{$title}', author = '{$author}', id_category = {$category_id}, date = NOW(), image = '{$post_image}', 
             description = '{$description}', tags = '{$tags}', status = '{$status}'
-            WHERE id = {$id_posts}";
+            WHERE id = {$id}";
 
             $stmt = mysqli_query($connection, $queryUpdate);
             confirm($stmt);
-            echo "<p class='bg-success'>Post updated! <a href='posts.php'>View Posts</a></p>";
+            echo "<p class='bg-success'>Post updated! <a href='posts.php'>View List Posts</a> or <a href='../post.php?id={$id}'>Go to Posts</a></p>";
             // header("Location: posts.php");
         }
     }

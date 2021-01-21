@@ -19,7 +19,7 @@
 
         confirm($stmt);
         // echo "User created: ". " " ." <a href='users.php'>View users</a>";
-        echo "<p class='bg-success'>New user has been added! <a href='users.php'>View users</a></p>";
+        echo "<p class='bg-success'>New user has been added! <a href='users.php'>View List Users</a></p>";
         // header("Location: users.php");
 
     }

@@ -61,22 +61,26 @@
                         $comment_desc = $_POST['comment_desc'];
                         $status = 'unapproved';
                         $date = date('Y-m-d');
-
-                        $query = "
-                        INSERT INTO comments(id_post, author, email, description, status, date)
-                        VALUES({$id_post}, '{$comment_author}', '{$comment_email}', '{$comment_desc}', '{$status}', '{$date}')";
-
-                        $stmt = mysqli_query($connection, $query);
-                        // confirm($stmt);
-                        if(!$stmt) {
-                            die("QUERY FAIL ".mysqli_error($connection));
+                        if(!empty($comment_author) && !empty($comment_email) && !empty($comment_desc)) {
+                            $query = "
+                            INSERT INTO comments(id_post, author, email, description, status, date)
+                            VALUES({$id_post}, '{$comment_author}', '{$comment_email}', '{$comment_desc}', '{$status}', '{$date}')";
+    
+                            $stmt = mysqli_query($connection, $query);
+                            // confirm($stmt);
+                            if(!$stmt) {
+                                die("QUERY FAIL ".mysqli_error($connection));
+                            }
+    
+                            $qry = "UPDATE posts SET total_comment = total_comment + 1 WHERE id = {$id_post}";
+                            $stmt2 = mysqli_query($connection, $qry);
+                            if(!$stmt2) {
+                                die("QUERY FAIL ".mysqli_error($connection));
+                            }
+                        } else {
+                            echo "<script>alert('Field cannot be empty')</script>";
                         }
 
-                        $qry = "UPDATE posts SET total_comment = total_comment + 1 WHERE id = {$id_post}";
-                        $stmt2 = mysqli_query($connection, $qry);
-                        if(!$stmt2) {
-                            die("QUERY FAIL ".mysqli_error($connection));
-                        }
                     }
 
                 ?>

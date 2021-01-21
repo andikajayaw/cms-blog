@@ -1,8 +1,11 @@
 <!-- Footer -->
+<?php 
+    $year = date('Y');
+?>
 <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Your Website <?php echo $year; ?></p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

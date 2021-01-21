@@ -19,7 +19,8 @@
         $stmt = mysqli_query($connection, $query);
 
         confirm($stmt);
-        echo "<p class='bg-success'>New post has been added! <a href='posts.php'>View Posts</a></p>";
+        $new_id = mysqli_insert_id($connection);
+        echo "<p class='bg-success'>New post has been created! <a href='posts.php'>View List Posts</a> or <a href='../post.php?id={$new_id}'>Go to Posts</a></p>";
         // header("Location: posts.php");
     }
 
@@ -34,7 +35,6 @@
     <div class="form-group">
         <label for="category">Post Category</label>
         <select name="category_id" class="form-control">
-            <option disabled selected> Pilih </option>
             <?php 
                 $query="SELECT * from categories" ;
                 $stmt = mysqli_query($connection, $query);
@@ -54,7 +54,10 @@
 
     <div class="form-group">
         <label for="status">Post Status</label>
-        <input type="text" name="status" class="form-control">
+        <select name="status" id="" class="form-control">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+        </select>
     </div>
 
     <div class="form-group">

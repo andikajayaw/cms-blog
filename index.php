@@ -12,7 +12,7 @@
             <div class="col-md-8">
 
                 <?php 
-                    $query = "SELECT * FROM posts";
+                    $query = "SELECT * FROM posts WHERE status = 'published'";
                     $stmt = mysqli_query($connection, $query);
 
                     while($row = mysqli_fetch_assoc($stmt)){
@@ -26,7 +26,7 @@
                         $image = $row['image'];
                         $status = $row['status'];
 
-                        if($status == 'published') {
+                        // if($status == 'published') {
 
                         ?>
 
@@ -53,8 +53,7 @@
                         <a class="btn btn-primary" href="post.php?id=<?php echo $id_post; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                         <hr>
-                <?php } 
-            }?>
+                <?php }?>
 
 
             </div>
