@@ -132,6 +132,7 @@ if(isset($_POST['submit_bulk'])) {
                             <a class='btn btn-info btn-xs btn-flat' href='../post.php?id={$id}'>View Post</a>
                             <a class='btn btn-warning btn-xs btn-flat' href='posts.php?source=edit_post&id={$id}'>Edit</a>
                             <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='posts.php?delete={$id}'>Delete</a>
+                            <a onClick=\"javscript: return confirm('Are you sure want to reset?');\" class='btn btn-warning btn-xs btn-flat' href='posts.php?reset_views={$id}'>Reset Views</a>
                         </td>";
                     echo "</tr>";
                 }
@@ -146,6 +147,20 @@ if(isset($_POST['submit_bulk'])) {
         $id = $_GET['delete'];
 
         $query = "DELETE FROM posts WHERE id = $id";
+        $stmt = mysqli_query($connection, $query);
+        confirm($stmt);
+        header("Location: posts.php");
+
+    }
+?>
+
+
+<?php 
+    if(isset($_GET['reset_views'])) {
+
+        $id = $_GET['reset_views'];
+        $id = mysqli_real_escape_string($connection, $id);
+        $query = "UPDATE posts SET total_views = 0 WHERE id = $id";
         $stmt = mysqli_query($connection, $query);
         confirm($stmt);
         header("Location: posts.php");
