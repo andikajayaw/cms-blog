@@ -98,7 +98,8 @@ if(isset($_POST['submit_bulk'])) {
                 // LEFT JOIN categories b ON a.id_category = b.id_category";
                 $query = "SELECT a.*, b.title as title_category
                 FROM posts a 
-                LEFT JOIN categories b ON a.id_category = b.id_category";
+                LEFT JOIN categories b ON a.id_category = b.id_category
+                ORDER BY id DESC";
                 $stmt = mysqli_query($connection, $query);
 
                 while($row = mysqli_fetch_assoc($stmt)){

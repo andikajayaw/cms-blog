@@ -17,7 +17,7 @@
             // $query = "SELECT a.*, b.title as title_category 
             // FROM posts a 
             // LEFT JOIN categories b ON a.id_category = b.id_category";
-            $query = "SELECT a.* FROM users a";
+            $query = "SELECT a.* FROM users a ORDER BY id DESC";
             $stmt = mysqli_query($connection, $query);
             confirm($stmt);
 
