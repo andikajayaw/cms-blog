@@ -29,6 +29,29 @@ if(isset($_POST['submit_bulk'])) {
                     confirm($stmt);
                     echo "<p class='bg-danger'>Posts $arr deleted!</p>";
                     break;
+                case 'clone': 
+                    // echo "Clone";
+                    $query = "SELECT a.*, b.title as title_category
+                    FROM posts a 
+                    LEFT JOIN categories b ON a.id_category = b.id_category
+                    WHERE id = $arr";
+                    $stmt = mysqli_query($connection, $query);
+                    while($row = mysqli_fetch_assoc($stmt)){
+                        $id_category = $row['id_category'];
+                        $post_title = $row['title'];
+                        $date = $row['date'];
+                        $author = $row['author'];
+                        $status = $row['status'];
+                        $image = $row['image'];
+                        $tags = $row['tags'];
+                        $description = $row['description'];
+                    }
+                    $queryClone = "
+                    INSERT INTO posts(id_category, title, author, date, image, description, tags, status)
+                    VALUES({$id_category}, '{$post_title}', '{$author}', now(), '{$image}', '{$description}', '{$tags}', '{$status}')";
+                    $stmtClone = mysqli_query($connection, $queryClone);
+                    confirm($stmtClone);
+                    break;
                 default:
                     #code..
                     break;
@@ -43,6 +66,7 @@ if(isset($_POST['submit_bulk'])) {
         <div id="bulkOptionsContainer" class="col-xs-4">
             <select class="form-control" name="bulk_options" id="">
                 <option selected disabled>Select options</option>
+                <option value="clone">Clone</option>
                 <option value="published">Publish</option>
                 <option value="draft">Draft</option>
                 <option value="delete">Delete</option>

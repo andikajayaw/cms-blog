@@ -19,6 +19,7 @@
                         $stmt = mysqli_query($connection, $query);
 
                         while($row = mysqli_fetch_assoc($stmt)){
+                            $id_post = $row['id'];
                             $title = $row['title'];
                             $author = $row['author'];
                             $date = $row['date'];
@@ -37,14 +38,16 @@
 
                             <!-- First Blog Post -->
                             <h2>
-                                <a href="#"><?php echo $title; ?></a>
+                                <a href="post.php?id=<?php echo $id_post; ?>"><?php echo $title; ?></a>
                             </h2>
                             <p class="lead">
-                                by <a href="index.php"><?php echo $author; ?></a>
+                                All posts by: <?php echo $author; ?>
                             </p>
                             <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $date; ?></p>
                             <hr>
-                            <img class="img-responsive" src="images/<?php echo $image; ?>" alt="">
+                            <a href="post.php?id=<?php echo $id_post; ?>">
+                                <img class="img-responsive" src="images/<?php echo $image; ?>" alt="">
+                            </a>
                             <hr>
                             <p><?php echo $description; ?></p>
                             <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
