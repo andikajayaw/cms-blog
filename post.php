@@ -14,6 +14,13 @@
                 <?php 
                     if(isset($_GET['id'])) {
                         $id = $_GET['id'];
+
+                        $updateView = "UPDATE posts SET total_views = total_views + 1 WHERE id = $id";
+                        $stmtView = mysqli_query($connection, $updateView);
+                        if(!$stmtView) {
+                            die("QUERY FAILED ".mysqli_error($connection));
+                        }
+
                         $query = "SELECT * FROM posts WHERE id = {$id}";
                         $stmt = mysqli_query($connection, $query);
 
@@ -50,6 +57,8 @@
 
                             <hr>
                         <?php } 
+                    } else {
+                        header("Location: index.php");
                     } ?>
 
                 <!-- Blog Comments -->

@@ -86,7 +86,8 @@ if(isset($_POST['submit_bulk'])) {
                 <th>Status</th>
                 <th>Image</th>
                 <th>Tags</th>
-                <th>Comments</th>
+                <th>Total Comments</th>
+                <th>Total Views</th>
                 <th>Date</th>
                 <th>#</th>
             </tr>
@@ -111,6 +112,7 @@ if(isset($_POST['submit_bulk'])) {
                     $image = $row['image'];
                     $tags = $row['tags'];
                     $total_comment = $row['total_comment'];
+                    $total_views = $row['total_views'];
                     $date = $row['date'];
                     echo "<tr>";
                     ?>
@@ -124,6 +126,7 @@ if(isset($_POST['submit_bulk'])) {
                     echo "<td><img class='img-responsive' src='../images/{$image}' alt='image' width='100' height='100'></td>";
                     echo "<td>{$tags}</td>";
                     echo "<td>{$total_comment}</td>";
+                    echo "<td>{$total_views}</td>";
                     echo "<td>{$date}</td>";
                     echo "<td>
                             <a class='btn btn-info btn-xs btn-flat' href='../post.php?id={$id}'>View Post</a>
