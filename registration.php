@@ -5,12 +5,43 @@
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-
-        $username = mysqli_real_escape_string($connection, $username);
-        $email = mysqli_real_escape_string($connection, $email);
-        $password = mysqli_real_escape_string($connection, $password);
+        if(!empty($username) && !empty($email) && !empty($password)){
+            $username = mysqli_real_escape_string($connection, $username);
+            $email = mysqli_real_escape_string($connection, $email);
+            $password = mysqli_real_escape_string($connection, $password);
     
-    } 
+            $query = "SELECT rand_salt FROM users";
+            $stmt = mysqli_query($connection, $query);
+    
+            if(!$stmt) {
+                die("QUERY FAILED ".mysqli_error($connection));
+            }
+    
+            $row = mysqli_fetch_assoc($stmt);
+            $randSalt = $row['rand_salt'];
+
+            $password = crypt($password, $randSalt);
+    
+            $queryRegister = "INSERT INTO users(username, email, password, roles) 
+            VALUES('$username', '$email', '$password', 'subscriber')";
+            $stmtRegister = mysqli_query($connection, $queryRegister);
+            if(!$stmtRegister) {
+                die("QUERY FAILED ".mysqli_error($connection));
+            }
+            $message = "New user has been registered!";
+            // echo "<p class='bg-success'>New user has been registered!</p>";
+        } else {
+            $message = "Field cannot be empty!";
+        }
+
+        // while($row = mysqli_fetch_assoc($stmt)){
+        //     $randSalt = $row['rand_salt'];
+        //     echo $randSalt;
+        // }
+    
+    } else {
+        $message = '';
+    }
 ?>
 
 
@@ -28,6 +59,7 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Register</h1>
+                    <h5 class="text-center"><?php echo $message; ?></h5>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>

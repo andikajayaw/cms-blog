@@ -103,7 +103,7 @@ if(isset($_POST['submit_bulk'])) {
                     echo "<td>
                             <a class='btn btn-info btn-xs btn-flat' href='../post.php?id={$id}'>View Post</a>
                             <a class='btn btn-warning btn-xs btn-flat' href='posts.php?source=edit_post&id={$id}'>Edit</a>
-                            <a class='btn btn-danger btn-xs btn-flat' href='posts.php?delete={$id}'>Delete</a>
+                            <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='posts.php?delete={$id}'>Delete</a>
                         </td>";
                     echo "</tr>";
                 }
@@ -114,6 +114,7 @@ if(isset($_POST['submit_bulk'])) {
 
 <?php 
     if(isset($_GET['delete'])) {
+
         $id = $_GET['delete'];
 
         $query = "DELETE FROM posts WHERE id = $id";

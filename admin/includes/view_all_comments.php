@@ -42,7 +42,7 @@
                 echo "<td><a class='btn btn-info btn-xs btn-flat' href='comments.php?approved=$id'>Approve</a></td>";
                 echo "<td><a class='btn btn-warning btn-xs btn-flat' href='comments.php?unapproved=$id'>Unapprove</a></td>";
                 echo "<td>
-                        <a class='btn btn-danger btn-xs btn-flat' href='comments.php?delete=$id'>Delete</a>
+                        <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='comments.php?delete=$id'>Delete</a>
                     </td>";
                 echo "</tr>";
             }

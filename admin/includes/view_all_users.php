@@ -43,7 +43,7 @@
                     </td>";
                 echo "<td>
                         <a class='btn btn-warning btn-xs btn-flat' href='users.php?source=edit_user&id={$id}'>Edit</a>
-                        <a class='btn btn-danger btn-xs btn-flat' href='users.php?delete={$id}'>Delete</a>
+                        <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='users.php?delete={$id}'>Delete</a>
                     </td>";
                 echo "</tr>";
             }

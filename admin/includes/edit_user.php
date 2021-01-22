@@ -15,13 +15,22 @@
             $roles = $row['roles'];
             // $image = $row['image'];
         }
+
+        
         if(isset($_POST['update_user'])){
+            $query = "SELECT rand_salt FROM users";
+            $stmt = mysqli_query($connection, $query);
+            confirm($stmt);
+            $row = mysqli_fetch_array($stmt);
+            $rand_salt = $row['rand_salt'];
+            
             $username = $_POST['username'];
             $password = $_POST['password'];
             $email = $_POST['email'];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $roles = $_POST['roles'];
+            $hashed_password = crypt($password, $rand_salt);
             // $image = $_FILES['image']['name'];
             // $image_temp = $_FILES['image']['tmp_name'];
     
@@ -30,7 +39,7 @@
             $query = "
             UPDATE users 
             SET username = '{$username}', first_name = '{$first_name}',  last_name = '{$last_name}', 
-            email = '{$email}', password = '{$password}', roles = '{$roles}'
+            email = '{$email}', password = '{$hashed_password}', roles = '{$roles}'
             WHERE id_user = {$id_user}";
     
             $stmt = mysqli_query($connection, $query);

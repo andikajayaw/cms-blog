@@ -22,6 +22,7 @@
             $last_name = $row['last_name'];
             $roles = $row['roles'];
         }
+        $password = crypt($password, $user_password);
 
         if($username !== $user_name && $password !== $user_password)  {
             header("Location: ../index.php");
