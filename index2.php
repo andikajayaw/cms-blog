@@ -12,25 +12,7 @@
             <div class="col-md-8">
 
                 <?php 
-                    $perPage = 5;
-                    if(isset($_GET['page'])) {
-                        $page = $_GET['page'];
-                    } else {
-                        $page = "";
-                    }
-
-                    if($page === "" || $page === 1) {
-                        $page_1 = 0;
-                    } else{
-                        $page_1 = ($page * $perPage) - $perPage;
-                    }
-                    $queryTotal = "SELECT * FROM posts";
-                    $stmtTotal = mysqli_query($connection, $queryTotal);
-                    $countPost = mysqli_num_rows($stmtTotal);
-
-                    $countPost = ceil($countPost / $perPage);
-
-                    $query = "SELECT * FROM posts WHERE status = 'published' LIMIT $page_1, $perPage";
+                    $query = "SELECT * FROM posts WHERE status = 'published'";
                     $stmt = mysqli_query($connection, $query);
 
                     while($row = mysqli_fetch_assoc($stmt)){
@@ -55,7 +37,6 @@
                         </h1>
 
                         <!-- First Blog Post -->
-                        <!-- <h1><?php echo $countPost; ?></h1> -->
                         <h2>
                             <a href="post.php?id=<?php echo $id_post; ?>"><?php echo $title; ?></a>
                         </h2>
@@ -84,17 +65,5 @@
         <!-- /.row -->
 
         <hr>
-
-        <ul class="pager">
-            <?php 
-                for($i = 1; $i <= $countPost; $i++) {
-                    if($i == $page) {
-                        echo "<li><a class='active_link' href='index.php?page={$i}'>$i</a></li>";
-                    } else {
-                        echo "<li><a href='index.php?page={$i}'>$i</a></li>";
-                    }
-                }
-            ?>
-        </ul>
 
 <?php include "includes/footer.php"; ?>
