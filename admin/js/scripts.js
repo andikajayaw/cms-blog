@@ -5,6 +5,7 @@ $(document).ready(function() {
         .create(document.querySelector('#body'))
         .catch(error => {
             console.error(error);
+            // alert(error);
         });
 
     $('#selectAll').click(function(event) {
@@ -25,3 +26,13 @@ $(document).ready(function() {
         $(this).remove();
     });
 });
+
+function loadUsersOnline() {
+    $.get("functions.php?onlineusers=result", function(data) {
+        $(".onlineusers").text(data);
+    });
+}
+
+setInterval(function() {
+    loadUsersOnline();
+},500);

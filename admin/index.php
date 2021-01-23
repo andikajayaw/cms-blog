@@ -1,8 +1,6 @@
 <?php include "includes/admin_header.php"; ?>
 
     <div id="wrapper">
-        <?php if($connection) echo "Hello!"; ?>
-
         <!-- Navigation -->
         <?php include "includes/admin_navigation.php"; ?>
         

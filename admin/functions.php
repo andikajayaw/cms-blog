@@ -54,4 +54,34 @@ function delete_categories() {
     }
 }
 
+function usersOnline() {
+    if(isset($_GET['onlineusers'])) {
+        global $connection; 
+        if(!$connection) {
+            session_start();
+            include_once("../includes/db.php");
+            $session_id = session_id();
+            $time = time();
+            $time_out_seconds = 05;
+            $time_out = $time - $time_out_seconds;
+        
+            $query = "SELECT * FROM users_online WHERE session = '$session_id'";
+            $stmt = mysqli_query($connection, $query);
+            $count_online = mysqli_num_rows($stmt);
+            
+            if($count_online == null) {
+                mysqli_query($connection, "INSERT INTO users_online(session, time) VALUES('$session_id', $time)");
+            } else {
+                mysqli_query($connection, "UPDATE users_online SET time = $time WHERE session = '$session_id'");
+            }
+            $querySelectOnline = "SELECT * FROM users_online WHERE time > $time_out";
+            $stmtUserOnline = mysqli_query($connection, $querySelectOnline);
+            $count_user_online = mysqli_num_rows($stmtUserOnline);
+        
+            echo $count_user_online;
+        }
+    }
+}
+usersOnline();
+
 ?>
