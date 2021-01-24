@@ -125,7 +125,12 @@ if(isset($_POST['submit_bulk'])) {
                     echo "<td>{$status}</td>";
                     echo "<td><img class='img-responsive' src='../images/{$image}' alt='image' width='100' height='100'></td>";
                     echo "<td>{$tags}</td>";
-                    echo "<td>{$total_comment}</td>";
+                    $queryCountComments = "SELECT * FROM comments WHERE id_post = {$id}";
+                    $stmtCountComments = mysqli_query($connection, $queryCountComments);
+                    $row_comment = mysqli_fetch_assoc($stmtCountComments);
+                    $id_post_comment = $row_comment['id_post'];
+                    $total_comments = mysqli_num_rows($stmtCountComments);
+                    echo "<td><a href='post_comments.php?id={$id_post_comment}'>{$total_comments}</a></td>";
                     echo "<td>{$total_views}</td>";
                     echo "<td>{$date}</td>";
                     echo "<td>

@@ -81,11 +81,11 @@
                                 die("QUERY FAIL ".mysqli_error($connection));
                             }
     
-                            $qry = "UPDATE posts SET total_comment = total_comment + 1 WHERE id = {$id_post}";
-                            $stmt2 = mysqli_query($connection, $qry);
-                            if(!$stmt2) {
-                                die("QUERY FAIL ".mysqli_error($connection));
-                            }
+                            // $qry = "UPDATE posts SET total_comment = total_comment + 1 WHERE id = {$id_post}";
+                            // $stmt2 = mysqli_query($connection, $qry);
+                            // if(!$stmt2) {
+                            //     die("QUERY FAIL ".mysqli_error($connection));
+                            // }
                         } else {
                             echo "<script>alert('Field cannot be empty')</script>";
                         }
