@@ -22,11 +22,9 @@
             $last_name = $row['last_name'];
             $roles = $row['roles'];
         }
-        $password = crypt($password, $user_password);
+        // $password = crypt($password, $user_password);
 
-        if($username !== $user_name && $password !== $user_password)  {
-            header("Location: ../index.php");
-        } else if($username === $user_name && $password === $user_password) {
+        if(password_verify($password, $user_password)) {
             $_SESSION['id_user'] = $id_user;
             $_SESSION['username'] = $user_name;
             $_SESSION['first_name'] = $first_name;
