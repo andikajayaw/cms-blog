@@ -68,7 +68,7 @@
                         $comment_author = $_POST['comment_author'];
                         $comment_email = $_POST['comment_email'];
                         $comment_desc = $_POST['comment_desc'];
-                        $status = 'unapproved';
+                        $status = 'UNAPPROVED';
                         $date = date('Y-m-d');
                         if(!empty($comment_author) && !empty($comment_email) && !empty($comment_desc)) {
                             $query = "
