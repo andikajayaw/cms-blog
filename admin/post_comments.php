@@ -142,8 +142,8 @@
                                         echo "<td><a href='../post.php?id=$id_post'>{$title_post}</a></td>";
                                         echo "<td>{$status}</td>";
                                         echo "<td>{$date}</td>";
-                                        echo "<td><a class='btn btn-info btn-xs btn-flat' href='post_comments.php?approved=$id&id=$id_post'>Approve</a></td>";
-                                        echo "<td><a class='btn btn-warning btn-xs btn-flat' href='post_comments.php?unapproved=$id&id=$id_post'>Unapprove</a></td>";
+                                        echo "<td><a class='btn btn-info btn-xs btn-flat' href='post_comments.php?approved=$id&id={$id_post_comment}'>Approve</a></td>";
+                                        echo "<td><a class='btn btn-warning btn-xs btn-flat' href='post_comments.php?unapproved=$id&id={$id_post_comment}'>Unapprove</a></td>";
                                         echo "<td>
                                                 <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='post_comments.php?delete=$id&id={$id_post_comment}'>Delete</a>
                                             </td>";
