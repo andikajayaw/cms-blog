@@ -18,36 +18,44 @@
 
         
         if(isset($_POST['update_user'])){
-            $query = "SELECT rand_salt FROM users";
-            $stmt = mysqli_query($connection, $query);
-            confirm($stmt);
-            $row = mysqli_fetch_array($stmt);
-            $rand_salt = $row['rand_salt'];
             
             $username = $_POST['username'];
-            $password = $_POST['password'];
+            $update_password = $_POST['password'];
             $email = $_POST['email'];
             $first_name = $_POST['first_name'];
             $last_name = $_POST['last_name'];
             $roles = $_POST['roles'];
-            $hashed_password = crypt($password, $rand_salt);
+            // $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 10));
             // $image = $_FILES['image']['name'];
             // $image_temp = $_FILES['image']['tmp_name'];
+
+            if(!empty($update_password)) {
+                $queryPassword = "SELECT password FROM users WHERE id_user = {$id_user}";
+                $stmtPassword = mysqli_query($connection, $queryPassword);
+                confirm($stmtPassword);
+                $row = mysqli_fetch_assoc($stmtPassword);
+                $password = $row['password'];
+
+                if($update_password != $password) {
+                    $update_password = password_hash($update_password, PASSWORD_BCRYPT, array('cost' => 10));
+                }
+                $query = "
+                UPDATE users 
+                SET username = '{$username}', first_name = '{$first_name}',  last_name = '{$last_name}', 
+                email = '{$email}', password = '{$update_password}', roles = '{$roles}'
+                WHERE id_user = {$id_user}";
+        
+                $stmt = mysqli_query($connection, $query);
+        
+                confirm($stmt);
+                echo "<p class='bg-success'>Users updated! <a href='users.php'>View List Users</a></p>";
+            }
+
+
     
-            // move_uploaded_file($image_temp, "../images/$image");
-    
-            $query = "
-            UPDATE users 
-            SET username = '{$username}', first_name = '{$first_name}',  last_name = '{$last_name}', 
-            email = '{$email}', password = '{$hashed_password}', roles = '{$roles}'
-            WHERE id_user = {$id_user}";
-    
-            $stmt = mysqli_query($connection, $query);
-    
-            confirm($stmt);
-            echo "<p class='bg-success'>Users updated! <a href='users.php'>View List Users</a></p>";
-            // header("Location: users.php");
         }
+    } else {
+        header("Location: index.php");
     }
 
 ?>
@@ -75,7 +83,7 @@
 
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
+        <input type="password" name="password" class="form-control" autocomplete="off">
     </div>
 
     <div class="form-group">

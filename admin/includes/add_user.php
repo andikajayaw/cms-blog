@@ -10,6 +10,7 @@
         // $image_temp = $_FILES['image']['tmp_name'];
 
         // move_uploaded_file($image_temp, "../images/$image");
+        $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 10));
 
         $query = "
         INSERT INTO users(username, first_name, last_name, email, password, roles)

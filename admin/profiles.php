@@ -16,33 +16,42 @@
             $username = $row['username'];
             $password = $row['password'];
             $email = $row['email'];
-            $roles = $row['roles'];
         }
     }
 
     if(isset($_POST['update_profile'])){
-        $id_user = $_POST['id_user'];
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $update_password = $_POST['password'];
         $email = $_POST['email'];
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
-        $roles = $_POST['roles'];
+        // $roles = $_POST['roles'];
         // $image = $_FILES['image']['name'];
         // $image_temp = $_FILES['image']['tmp_name'];
 
         // move_uploaded_file($image_temp, "../images/$image");
 
-        $query = "
-        UPDATE users 
-        SET username = '{$username}', first_name = '{$first_name}',  last_name = '{$last_name}', 
-        email = '{$email}', password = '{$password}', roles = '{$roles}'
-        WHERE id_user = {$id_user} AND username = '{$username_session}'";
+        if(!empty($update_password)) {
+            $queryPassword = "SELECT password FROM users WHERE id_user = {$id_user}";
+            $stmtPassword = mysqli_query($connection, $queryPassword);
+            confirm($stmtPassword);
+            $row = mysqli_fetch_assoc($stmtPassword);
+            $password = $row['password'];
+            if($update_password != $password) {
+                $update_password = password_hash($update_password, PASSWORD_BCRYPT, array('cost' => 10));
+            }
+            $query = "
+            UPDATE users 
+            SET username = '{$username}', first_name = '{$first_name}',  last_name = '{$last_name}', 
+            email = '{$email}', password = '{$update_password}'
+            WHERE id_user = {$id_user} AND username = '{$username_session}'";
+    
+            $stmt = mysqli_query($connection, $query);
+    
+            confirm($stmt);
+            // header("Location: index.php");
+        }
 
-        $stmt = mysqli_query($connection, $query);
-
-        confirm($stmt);
-        header("Location: profiles.php");
     }
 ?>
 
@@ -64,10 +73,6 @@
                     </div>
                     <div class="col-lg-12">
                         <form action="" method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="id">ID</label>
-                                <input type="text" name="id_user" class="form-control" value="<?php echo $id_user; ?>">
-                            </div>
                             
                             <div class="form-group">
                                 <label for="first_name">First Name</label>
@@ -79,7 +84,7 @@
                                 <input type="text" name="last_name" class="form-control" value="<?php echo $last_name; ?>">
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="roles">Roles</label>
                                 <select name="roles" id="" class="form-control">
                                     <option selected value="<?php echo $roles; ?>"><?php echo $roles; ?></option>
@@ -92,7 +97,7 @@
                                     
                                     ?>
                                 </select>
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -106,13 +111,8 @@
 
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
+                                <input type="password" name="password" class="form-control" autocomplete="off">
                             </div>
-
-                            <!-- <div class="form-group">
-                                <label for="image">User Image</label>
-                                <input type="file" name="image">
-                            </div> -->
 
                             <div class="form-group">
                                 <input class="btn btn-primary" type="submit" name="update_profile" value="Update Profile">
