@@ -37,7 +37,7 @@
                     while($row = mysqli_fetch_assoc($stmt)){
                         $id_post = $row['id'];
                         $title = $row['title'];
-                        $author = $row['author'];
+                        $author = $row['username'];
                         $date = $row['date'];
                         $image = $row['image'];
                         $description = substr($row['description'], 0, 150);

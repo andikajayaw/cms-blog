@@ -2,7 +2,7 @@
     if(isset($_POST['submit'])){
         $title = $_POST['title'];
         $category_id = $_POST['category_id'];
-        $author = $_POST['author'];
+        $user = $_POST['user'];
         $status = $_POST['status'];
         $image = $_FILES['image']['name'];
         $image_temp = $_FILES['image']['tmp_name'];
@@ -13,8 +13,8 @@
         move_uploaded_file($image_temp, "../images/$image");
 
         $query = "
-        INSERT INTO posts(id_category, title, author, date, image, description, tags, status)
-        VALUES($category_id, '$title', '$author', NOW(), '$image', '$description', '$tags', '$status')";
+        INSERT INTO posts(id_category, title, username, date, image, description, tags, status)
+        VALUES($category_id, '$title', '$user', NOW(), '$image', '$description', '$tags', '$status')";
 
         $stmt = mysqli_query($connection, $query);
 
@@ -54,8 +54,8 @@
     </div> -->
 
     <div class="form-group">
-        <label for="author">Users</label>
-        <select name="author" id="" class="form-control">
+        <label for="user">Users</label>
+        <select name="user" id="" class="form-control">
                 <option selected disabled>Select Users</option>
                 <?php 
                     $query = "SELECT * FROM users";
@@ -64,7 +64,7 @@
                     while($row = mysqli_fetch_assoc($stmtUsers)) {
                         $id_user = $row['id_user'];
                         $username = $row['username'];
-                        echo " <option value={$id_user}>{$id_user} - {$username}</option> ";
+                        echo " <option value={$username}>{$username}</option> ";
                     }
                 ?> 
         </select>

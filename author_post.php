@@ -15,13 +15,14 @@
                     if(isset($_GET['id'])) {
                         $id = $_GET['id'];
                         $user_author = $_GET['author'];
-                        $query = "SELECT * FROM posts WHERE author = '{$user_author}'";
+                        $query = "SELECT * FROM posts WHERE username = '{$user_author}'";
                         $stmt = mysqli_query($connection, $query);
 
                         while($row = mysqli_fetch_assoc($stmt)){
                             $id_post = $row['id'];
                             $title = $row['title'];
-                            $author = $row['author'];
+                            $author = $row['username'];
+                            $username = $row['username'];
                             $date = $row['date'];
                             $image = $row['image'];
                             $description = $row['description'];

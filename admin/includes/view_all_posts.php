@@ -80,8 +80,8 @@ if(isset($_POST['submit_bulk'])) {
             <tr>
                 <th><input type="checkbox" name="selectAll" id="selectAll" class="select"></th>
                 <th>ID</th>
-                <th>Author</th>
                 <th>Title</th>
+                <th>Users</th>
                 <th>Category</th>
                 <th>Status</th>
                 <th>Image</th>
@@ -107,6 +107,7 @@ if(isset($_POST['submit_bulk'])) {
                     $id = $row['id'];
                     $post_title = $row['title'];
                     $author = $row['author'];
+                    $user = $row['username'];
                     $category_title = $row['title_category'];
                     $status = $row['status'];
                     $image = $row['image'];
@@ -120,7 +121,11 @@ if(isset($_POST['submit_bulk'])) {
                     <?php 
                     echo "<td>{$id}</td>";
                     echo "<td>{$post_title}</td>";
-                    echo "<td>{$author}</td>";
+                    if(isset($author) || !empty($author)){
+                        echo "<td>{$author}</td>";
+                    } else if(isset($user) || !empty($user)) {
+                        echo "<td>{$user}</td>";
+                    }
                     echo "<td>{$category_title}</td>";
                     echo "<td>{$status}</td>";
                     echo "<td><img class='img-responsive' src='../images/{$image}' alt='image' width='100' height='100'></td>";

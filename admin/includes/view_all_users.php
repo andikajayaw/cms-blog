@@ -53,12 +53,18 @@
 
 <?php 
     if(isset($_GET['delete'])) {
-        $id = $_GET['delete'];
+        if(isset($_SESSION['roles'])){
+            if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
 
-        $query = "DELETE FROM users WHERE id_user = $id";
-        $stmt = mysqli_query($connection, $query);
-        confirm($stmt);
-        header("Location: users.php");
+                $id = $_GET['delete'];
+                $id = mysqli_real_escape_string($connection, $id);
+        
+                $query = "DELETE FROM users WHERE id_user = $id";
+                $stmt = mysqli_query($connection, $query);
+                confirm($stmt);
+                header("Location: users.php");
+            }
+        }
 
     }
     if(isset($_GET['admin'])){

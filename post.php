@@ -26,7 +26,7 @@
 
                         while($row = mysqli_fetch_assoc($stmt)){
                             $title = $row['title'];
-                            $author = $row['author'];
+                            $author = $row['username'];
                             $date = $row['date'];
                             $image = $row['image'];
                             $description = $row['description'];
