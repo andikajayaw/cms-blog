@@ -4,7 +4,7 @@ if(isset($_POST['submit_bulk'])) {
     if(isset($_POST['selectArr'])) {
         $array = $_POST['selectArr'];
         foreach($array as $arr) {
-            $bulk_options = $_POST['bulk_options'];
+            $bulk_options = escape($_POST['bulk_options']);
             switch($bulk_options) {
                 case 'published': 
                     // echo "Published";
@@ -37,18 +37,20 @@ if(isset($_POST['submit_bulk'])) {
                     WHERE id = $arr";
                     $stmt = mysqli_query($connection, $query);
                     while($row = mysqli_fetch_assoc($stmt)){
-                        $id_category = $row['id_category'];
-                        $post_title = $row['title'];
-                        $date = $row['date'];
-                        $author = $row['author'];
-                        $status = $row['status'];
-                        $image = $row['image'];
-                        $tags = $row['tags'];
-                        $description = $row['description'];
+                        $id_category = escape($row['id_category']);
+                        $post_title = escape($row['title']);
+                        $date = escape($row['date']);
+                        $author = escape($row['author']);
+                        $username = escape($row['username']);
+                        $status = escape($row['status']);
+                        $image = escape($row['image']);
+                        $tags = escape($row['tags']);
+                        $description = escape($row['description']);
                     }
                     $queryClone = "
-                    INSERT INTO posts(id_category, title, author, date, image, description, tags, status)
-                    VALUES({$id_category}, '{$post_title}', '{$author}', now(), '{$image}', '{$description}', '{$tags}', '{$status}')";
+                    INSERT INTO posts(id_category, title, author, username, date, image, description, tags, status)
+                    VALUES({$id_category}, '{$post_title}', '{$author}', '{$username}',  now(), '{$image}', '{$description}', '{$tags}', '{$status}')";
+                    // echo $queryClone;
                     $stmtClone = mysqli_query($connection, $queryClone);
                     confirm($stmtClone);
                     break;
@@ -121,9 +123,9 @@ if(isset($_POST['submit_bulk'])) {
                     <?php 
                     echo "<td>{$id}</td>";
                     echo "<td>{$post_title}</td>";
-                    if(isset($author) || !empty($author)){
+                    if(!empty($author)){
                         echo "<td>{$author}</td>";
-                    } else if(isset($user) || !empty($user)) {
+                    } else if(!empty($user)) {
                         echo "<td>{$user}</td>";
                     }
                     echo "<td>{$category_title}</td>";
@@ -157,13 +159,17 @@ if(isset($_POST['submit_bulk'])) {
 
 <?php 
     if(isset($_GET['delete'])) {
+        if(isset($_SESSION['roles'])){
+            if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
 
-        $id = $_GET['delete'];
-
-        $query = "DELETE FROM posts WHERE id = $id";
-        $stmt = mysqli_query($connection, $query);
-        confirm($stmt);
-        header("Location: posts.php");
+                $id = escape($_GET['delete']);
+        
+                $query = "DELETE FROM posts WHERE id = $id";
+                $stmt = mysqli_query($connection, $query);
+                confirm($stmt);
+                header("Location: posts.php");
+            }
+        }
 
     }
 ?>

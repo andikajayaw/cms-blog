@@ -1,11 +1,11 @@
 <?php 
     if(isset($_POST['submit'])){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $email = $_POST['email'];
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $roles = $_POST['roles'];
+        $username = escape($_POST['username']);
+        $password = escape($_POST['password']);
+        $email = escape($_POST['email']);
+        $first_name = escape($_POST['first_name']);
+        $last_name = escape($_POST['last_name']);
+        $roles = escape($_POST['roles']);
         // $image = $_FILES['image']['name'];
         // $image_temp = $_FILES['image']['tmp_name'];
 

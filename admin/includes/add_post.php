@@ -1,14 +1,14 @@
 <?php 
     if(isset($_POST['submit'])){
-        $title = $_POST['title'];
-        $category_id = $_POST['category_id'];
-        $user = $_POST['user'];
-        $status = $_POST['status'];
+        $title = escape($_POST['title']);
+        $category_id = escape($_POST['category_id']);
+        $user = escape($_POST['user']);
+        $status = escape($_POST['status']);
         $image = $_FILES['image']['name'];
         $image_temp = $_FILES['image']['tmp_name'];
-        $tags = $_POST['tags'];
-        $description = $_POST['description'];
-        $date = $_POST['date'];
+        $tags = escape($_POST['tags']);
+        $description = escape($_POST['description']);
+        $date = escape($_POST['date']);
 
         move_uploaded_file($image_temp, "../images/$image");
 

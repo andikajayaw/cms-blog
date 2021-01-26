@@ -22,15 +22,15 @@
             $description = $row['description'];
         }
         if(isset($_POST['update_post'])) {
-            $title = $_POST['title'];
-            $category_id = $_POST['category_id'];
-            // $author = $_POST['author'];
-            $user = $_POST['user'];
-            $status = $_POST['status'];
+            $title = escape($_POST['title']);
+            $category_id = escape($_POST['category_id']);
+            // $author = escape($_POST['author']);
+            $user = escape($_POST['user']);
+            $status = escape($_POST['status']);
             $post_image = $_FILES['image']['name'];
             $post_image_temp = $_FILES['image']['tmp_name'];
-            $tags = $_POST['tags'];
-            $description = $_POST['description'];
+            $tags = escape($_POST['tags']);
+            $description = escape($_POST['description']);
             $date = date('Y-m-d');
 
             if(empty($post_image)) {
