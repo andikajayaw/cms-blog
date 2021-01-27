@@ -1,4 +1,5 @@
 <?php 
+include("delete_modal.php");
 if(isset($_POST['submit_bulk'])) {
     // echo "HELLO BULK";
     if(isset($_POST['selectArr'])) {
@@ -147,10 +148,11 @@ if(isset($_POST['submit_bulk'])) {
                     echo "<td>
                             <a class='btn btn-info btn-xs btn-flat' href='../post.php?id={$id}'>View Post</a>
                             <a class='btn btn-warning btn-xs btn-flat' href='posts.php?source=edit_post&id={$id}'>Edit</a>
-                            <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='posts.php?delete={$id}'>Delete</a>
+                            <a rel={$id} class='btn btn-danger btn-xs btn-flat delete_link' href='javascript:void(0)'>Delete</a>
                             <a onClick=\"javscript: return confirm('Are you sure want to reset?');\" class='btn btn-warning btn-xs btn-flat' href='posts.php?reset_views={$id}'>Reset Views</a>
                         </td>";
                     echo "</tr>";
+                    // <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='posts.php?delete={$id}'>Delete</a>
                 }
             ?>
         </tbody>
@@ -187,3 +189,15 @@ if(isset($_POST['submit_bulk'])) {
 
     }
 ?>
+
+<script>
+    $(document).ready(function() {
+        $(".delete_link").on('click', function() {
+            var id = $(this).attr("rel");
+            var delete_url = `posts.php?delete=${id}`;
+
+            $(".modal_delete_link").attr("href", delete_url);
+            $("#myModal").modal('show');
+        }) 
+    })
+</script>
