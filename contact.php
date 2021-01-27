@@ -25,7 +25,7 @@
                 <div class="form-wrap">
                 <h1>Contact</h1>
                     <h5 class="text-center"><?php echo $message; ?></h5>
-                    <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                    <form role="form" action="contact.php" method="post" id="login-form" autocomplete="off">
                          <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
                             <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email">
