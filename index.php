@@ -25,13 +25,24 @@
                     } else{
                         $page_1 = ($page * $perPage) - $perPage;
                     }
-                    $queryTotal = "SELECT * FROM posts";
+
+                    if(isset($_SESSION['roles'])) {
+                        if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
+                            $queryTotal = "SELECT * FROM posts";
+
+                        }
+                    } else {
+                        $queryTotal = "SELECT * FROM posts WHERE status = 'published'";
+                    }
                     $stmtTotal = mysqli_query($connection, $queryTotal);
                     $countPost = mysqli_num_rows($stmtTotal);
+                    if($countPost < 1) {
+                        echo "<h2 class='text-center'>No Posts Available</h2>";
+                    } else {
 
                     $countPost = ceil($countPost / $perPage);
 
-                    $query = "SELECT * FROM posts WHERE status = 'published' LIMIT $page_1, $perPage";
+                    $query = "SELECT * FROM posts LIMIT $page_1, $perPage";
                     $stmt = mysqli_query($connection, $query);
 
                     while($row = mysqli_fetch_assoc($stmt)){
@@ -43,11 +54,7 @@
                         $description = substr($row['description'], 0, 150);
                         $tags = $row['tags'];
                         $image = $row['image'];
-                        $status = $row['status'];
-
-                        // if($status == 'published') {
-
-                        ?>
+                        $status = $row['status']; ?>
 
 
                         <h1 class="page-header">
@@ -72,8 +79,9 @@
                         <p><?php echo $description; ?>...</p>
                         <a class="btn btn-primary" href="post.php?id=<?php echo $id_post; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
-                        <hr>
-                <?php }?>
+                        <hr> 
+                    <?php }     
+            } ?>
 
 
             </div>

@@ -14,15 +14,28 @@
                 <?php 
                     if(isset($_GET['id'])) {
                         $id = $_GET['id'];
-
+                        // print_r($_SESSION);
                         $updateView = "UPDATE posts SET total_views = total_views + 1 WHERE id = $id";
                         $stmtView = mysqli_query($connection, $updateView);
                         if(!$stmtView) {
                             die("QUERY FAILED ".mysqli_error($connection));
                         }
 
-                        $query = "SELECT * FROM posts WHERE id = {$id}";
+                        if(isset($_SESSION['roles'])) {
+                            if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
+                                $query = "SELECT * FROM posts WHERE id = {$id}";
+                            }
+                        } else {
+                            $query = "SELECT * FROM posts WHERE id = {$id} AND status = 'published'";
+                        }
+
                         $stmt = mysqli_query($connection, $query);
+
+                        if(mysqli_num_rows($stmt) < 1) {
+                            echo "<h2 class='text-center'>No Posts Available</h2>";
+                        } else {
+                            
+                        
 
                         while($row = mysqli_fetch_assoc($stmt)){
                             $title = $row['title'];
@@ -37,8 +50,8 @@
 
 
                             <h1 class="page-header">
-                                Page Heading
-                                <small>Secondary Text</small>
+                                Post
+                                <!-- <small>Secondary Text</small> -->
                             </h1>
 
                             <!-- First Blog Post -->
@@ -57,9 +70,7 @@
 
                             <hr>
                         <?php } 
-                    } else {
-                        header("Location: index.php");
-                    } ?>
+                     ?>
 
                 <!-- Blog Comments -->
                 <?php 
@@ -144,7 +155,11 @@
                                 <?php echo $description ?>
                             </div>
                         </div>
-            <?php } ?>
+            <?php   } 
+                } 
+            } else {
+                header("Location: index.php");
+            }?>
             </div>
 
             <!-- Blog Sidebar Widgets Column -->

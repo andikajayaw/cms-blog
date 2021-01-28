@@ -14,9 +14,24 @@
                 <?php 
                     if(isset($_GET['id_category'])) {
                         $id_category = $_GET['id_category'];
-                        $query = "SELECT a.* FROM posts a 
-                        WHERE a.id_category = {$id_category}";
+                        if(isset($_SESSION['roles'])) {
+                            if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
+                                $query = "SELECT a.* FROM posts a 
+                                WHERE a.id_category = {$id_category}";
+                            }
+                        } else {
+                            // $query = "SELECT * FROM posts WHERE id = {$id} AND status = 'published'";
+                            $query = "SELECT a.* FROM posts a 
+                            WHERE a.id_category = {$id_category} AND a.status = 'published'";
+                        }
+                        
                         $stmt = mysqli_query($connection, $query);
+
+                        if(mysqli_num_rows($stmt) < 1) {
+                            echo "<h2 class='text-center'>No Posts from this Categories Available</h2>";
+                        } else {
+
+                        }
 
                         while($row = mysqli_fetch_assoc($stmt)){
                             $id_post = $row['id'];
@@ -52,7 +67,9 @@
 
                             <hr>
                         <?php } 
-                    } ?>
+                    } else {
+                        header("Location: index.php");
+                    }?>
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
