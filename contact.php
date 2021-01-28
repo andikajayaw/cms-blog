@@ -9,7 +9,6 @@
         
         // send email
         mail($to,$subject,$body,$header);
-    
     }
 ?>
 
@@ -28,7 +27,7 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Contact</h1>
-                    <h5 class="text-center"><?php echo $message; ?></h5>
+                    <!-- <h5 class="text-center"><?php echo $message; ?></h5> -->
                     <form role="form" action="contact.php" method="post" id="login-form" autocomplete="off">
                          <div class="form-group">
                             <label for="email" class="sr-only">Email</label>

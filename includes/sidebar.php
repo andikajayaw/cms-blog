@@ -43,19 +43,24 @@
 
     <!-- Login -->
     <div class="well">
-        <h4>Login</h4>
-        <form action="includes/login.php" method="POST">
-            <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="Enter username">
-            </div><!-- /.form-group -->
-            <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Enter password">
-            </div><!-- /.form-group -->
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" name="login" value="Login">
-            </div><!-- /.form-group -->
-            <br>
-        </form><!-- /.form -->
+        <?php if(isset($_SESSION['roles'])): ?>
+            <h4 class="text-center">Logged in as <?php echo $_SESSION['username'] ?></h4>
+            <a class="btn btn-danger btn-block" href="includes/logout.php">Logout</a>
+        <?php else: ?>
+            <h4>Login</h4>
+            <form action="includes/login.php" method="POST">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username" placeholder="Enter username">
+                </div><!-- /.form-group -->
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="Enter password">
+                </div><!-- /.form-group -->
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" name="login" value="Login">
+                </div><!-- /.form-group -->
+                <br>
+            </form><!-- /.form -->
+        <?php endif; ?>
     </div>
 
     <!-- Blog Categories Well -->
