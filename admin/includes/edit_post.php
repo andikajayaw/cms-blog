@@ -11,7 +11,7 @@
             $post_title = $row['title'];
             $author = $row['author'];
             $user = $row['username'];
-            $category_id = $row['id_category'];
+            $cat_id = $row['id_category'];
             $category_title = $row['cat_title'];
             $status = $row['status'];
             $image = $row['image'];
@@ -66,9 +66,9 @@
     <div class="form-group">
         <label for="category">Post Category</label>
         <select name="category_id" class="form-control">
-            <option selected value="<?php echo $category_id; ?>"><?php echo $category_title; ?></option>
+            <option disabled selected value="<?php echo $cat_id; ?>"><?php echo $category_title; ?></option>
             <?php 
-                $query="SELECT * from categories" ;
+                $query="SELECT * from categories";
                 $stmt = mysqli_query($connection, $query);
                 confirm($stmt);
                 while($row = mysqli_fetch_assoc($stmt)) {
@@ -88,7 +88,7 @@
     <div class="form-group">
         <label for="user">Users</label>
         <select name="user" id="" class="form-control">
-                <option selected value="<?php echo $user; ?>"><?php echo $user; ?></option>
+                <option selected disabled value="<?php echo $user; ?>"><?php echo $user; ?></option>
                 <?php 
                     $query = "SELECT * FROM users";
                     $stmtUsers = mysqli_query($connection, $query);
@@ -136,7 +136,7 @@
 
     <div class="form-group">
         <label for="image">Post Description</label>
-        <textarea name="description" id="body" cols="30" rows="10" class="form-control"><?php echo $description; ?></textarea>
+        <textarea name="description" id="body" cols="30" rows="10" class="form-control"><?php echo str_replace('\r\n', '<br />', $description); ?></textarea> 
     </div>
 
     <div class="form-group">
