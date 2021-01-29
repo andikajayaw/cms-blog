@@ -89,4 +89,22 @@ function usersOnline() {
 }
 usersOnline();
 
+function postCount($table) {
+    global $connection;
+    $query = "SELECT * FROM $table";
+    $stmt = mysqli_query($connection, $query);
+    confirm($stmt);
+    $result = mysqli_num_rows($stmt);
+    return $result;
+}
+
+function postStatus($table, $column, $status) {
+    global $connection;
+    $query = "SELECT * FROM $table WHERE $column = '$status'";
+    $stmt = mysqli_query($connection, $query);
+    confirm($stmt);
+    $result = mysqli_num_rows($stmt);
+    return $result;
+}
+
 ?>

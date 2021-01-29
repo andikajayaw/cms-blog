@@ -27,16 +27,7 @@
                                         <i class="fa fa-file-text fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <?php 
-                                            $query = "SELECT * FROM posts";
-                                            $stmt = mysqli_query($connection, $query);
-                                            $total_post = mysqli_num_rows($stmt);
-                                            // confirm($stmt);
-                                            // while($row = mysqli_fetch_assoc($stmt)) {
-                                            //     $total_post = $row['total_posts'];
-                                            // }
-                                        ?>
-                                        <div class='huge'><?php echo $total_post; ?></div>
+                                        <div class='huge'><?php echo $total_post =  postCount('posts') ?></div>
                                         <div>Posts</div>
                                     </div>
                                 </div>
@@ -58,16 +49,7 @@
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <?php 
-                                            $query = "SELECT * FROM comments";
-                                            $stmt = mysqli_query($connection, $query);
-                                            $total_comments = mysqli_num_rows($stmt);
-                                            // confirm($stmt);
-                                            // while($row = mysqli_fetch_assoc($stmt)) {
-                                            //     $total_comments = $row['total_comments'];
-                                            // }
-                                        ?>
-                                        <div class='huge'><?php echo $total_comments; ?></div>
+                                        <div class='huge'><?php echo $total_comments = postCount('comments'); ?></div>
                                         <div>Comments</div>
                                     </div>
                                 </div>
@@ -89,16 +71,7 @@
                                         <i class="fa fa-user fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <?php 
-                                            $query = "SELECT * FROM users";
-                                            $stmt = mysqli_query($connection, $query);
-                                            $total_users = mysqli_num_rows($stmt);
-                                            // confirm($stmt);
-                                            // while($row = mysqli_fetch_assoc($stmt)) {
-                                            //     $total_comments = $row['total_comments'];
-                                            // }
-                                        ?>
-                                        <div class='huge'><?php echo $total_users; ?></div>
+                                        <div class='huge'><?php echo $total_users = postCount('users'); ?></div>
                                         <div> Users</div>
                                     </div>
                                 </div>
@@ -129,7 +102,7 @@
                                             //     $total_comments = $row['total_comments'];
                                             // }
                                         ?>
-                                        <div class='huge'><?php echo $total_categories ?></div>
+                                        <div class='huge'><?php echo $total_categories = postCount('categories') ?></div>
                                         <div>Categories</div>
                                     </div>
                                 </div>
@@ -146,21 +119,13 @@
                 </div>
 
                 <?php 
-                    $queryPublished = "SELECT * FROM posts WHERE status = 'published'";
-                    $stmtPublished = mysqli_query($connection, $queryPublished);
-                    $total_published_post = mysqli_num_rows($stmtPublished);
+                    $total_published_post = postStatus('posts', 'status', 'published');
 
-                    $queryDraft = "SELECT * FROM posts WHERE status = 'draft'";
-                    $stmtDraft = mysqli_query($connection, $queryDraft);
-                    $total_draft_post = mysqli_num_rows($stmtDraft);
+                    $total_draft_post = postStatus('posts', 'status', 'draft');
 
-                    $querySubs = "SELECT * FROM users WHERE roles = 'SUBSCRIBER'";
-                    $stmtSubs = mysqli_query($connection, $querySubs);
-                    $total_subs_user = mysqli_num_rows($stmtSubs);
+                    $total_subs_user = postStatus('users', 'roles', 'SUBSCRIBER');
 
-                    $queryUnapp = "SELECT * FROM comments WHERE status = 'UNAPPROVED'";
-                    $stmtUnapp = mysqli_query($connection, $queryUnapp);
-                    $total_unapp_comment = mysqli_num_rows($stmtUnapp);
+                    $total_unapp_comment = postStatus('comments', 'status', 'UNAPPROVED');
                 ?>
 
                 <div class="row">

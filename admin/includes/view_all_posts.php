@@ -100,14 +100,19 @@ if(isset($_POST['submit_bulk'])) {
                 // $query = "SELECT a.*, b.title as title_category 
                 // FROM posts a 
                 // LEFT JOIN categories b ON a.id_category = b.id_category";
-                $query = "SELECT a.*, b.title as title_category
-                FROM posts a 
-                LEFT JOIN categories b ON a.id_category = b.id_category
-                ORDER BY id DESC";
+                // $query = "SELECT a.*, b.title as title_category
+                // FROM posts a 
+                // LEFT JOIN categories b ON a.id_category = b.id_category
+                // ORDER BY id DESC";
+                $query = "SELECT a.*, b.title as title_category, c.comment_total, c.id_post FROM posts a 
+                        LEFT JOIN categories b ON a.id_category = b.id_category 
+                        LEFT JOIN (SELECT id_post, COUNT(*) as comment_total FROM comments GROUP BY id_post) c ON c.id_post = a.id 
+                        ORDER BY id DESC";
                 $stmt = mysqli_query($connection, $query);
 
                 while($row = mysqli_fetch_assoc($stmt)){
                     $id = $row['id'];
+                    $id_post_comment = $row['id_post'];
                     $post_title = $row['title'];
                     $author = $row['author'];
                     $user = $row['username'];
@@ -116,6 +121,11 @@ if(isset($_POST['submit_bulk'])) {
                     $image = $row['image'];
                     $tags = $row['tags'];
                     $total_comment = $row['total_comment'];
+                    if(isset($row['comment_total'])) {
+                        $comment_total = $row['comment_total'];
+                    } else {
+                        $comment_total = 0;
+                    }
                     $total_views = $row['total_views'];
                     $date = $row['date'];
                     echo "<tr>";
@@ -133,16 +143,16 @@ if(isset($_POST['submit_bulk'])) {
                     echo "<td>{$status}</td>";
                     echo "<td><img class='img-responsive' src='../images/{$image}' alt='image' width='100' height='100'></td>";
                     echo "<td>{$tags}</td>";
-                    $queryCountComments = "SELECT * FROM comments WHERE id_post = {$id}";
-                    $stmtCountComments = mysqli_query($connection, $queryCountComments);
-                    $row_comment = mysqli_fetch_array($stmtCountComments);
-                    if(isset($row_comment['id_post'])) {
-                        $id_post_comment = $row_comment['id_post'];
-                    } else {
-                        $id_post_comment = "";
-                    }
-                    $total_comments = mysqli_num_rows($stmtCountComments);
-                    echo "<td><a href='post_comments.php?id=$id_post_comment'>{$total_comments}</a></td>";
+                    // $queryCountComments = "SELECT * FROM comments WHERE id_post = {$id}";
+                    // $stmtCountComments = mysqli_query($connection, $queryCountComments);
+                    // $row_comment = mysqli_fetch_array($stmtCountComments);
+                    // if(isset($row_comment['id_post'])) {
+                    //     $id_post_comment = $row_comment['id_post'];
+                    // } else {
+                    //     $id_post_comment = "";
+                    // }
+                    // $total_comments = mysqli_num_rows($stmtCountComments);
+                    echo "<td><a href='post_comments.php?id=$id_post_comment'>{$comment_total}</a></td>";
                     echo "<td>{$total_views}</td>";
                     echo "<td>{$date}</td>";
                     echo "<td>
