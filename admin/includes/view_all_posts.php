@@ -1,5 +1,5 @@
 <?php 
-include("delete_modal.php");
+// include("delete_modal.php");
 if(isset($_POST['submit_bulk'])) {
     // echo "HELLO BULK";
     if(isset($_POST['selectArr'])) {
@@ -92,7 +92,10 @@ if(isset($_POST['submit_bulk'])) {
                 <th>Total Comments</th>
                 <th>Total Views</th>
                 <th>Date</th>
-                <th>#</th>
+                <th>#View</th>
+                <th>#Edit</th>
+                <th>#Reset</th>
+                <th>#Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -139,12 +142,22 @@ if(isset($_POST['submit_bulk'])) {
                     echo "<td><a href='post_comments.php?id=$id_post_comment'>{$comment_total}</a></td>";
                     echo "<td>{$total_views}</td>";
                     echo "<td>{$date}</td>";
-                    echo "<td>
-                            <a class='btn btn-info btn-xs btn-flat' href='../post.php?id={$id}'>View Post</a>
-                            <a class='btn btn-warning btn-xs btn-flat' href='posts.php?source=edit_post&id={$id}'>Edit</a>
-                            <a rel={$id} class='btn btn-danger btn-xs btn-flat delete_link' href='javascript:void(0)'>Delete</a>
-                            <a onClick=\"javscript: return confirm('Are you sure want to reset?');\" class='btn btn-warning btn-xs btn-flat' href='posts.php?reset_views={$id}'>Reset Views</a>
-                        </td>";
+                    echo "<td><a class='btn btn-info btn-xs btn-flat' href='../post.php?id={$id}'>View Post</a></td>";
+                    echo "<td><a class='btn btn-warning btn-xs btn-flat' href='posts.php?source=edit_post&id={$id}'>Edit</a></td>";
+                    echo "<td><a onClick=\"javscript: return confirm('Are you sure want to reset?');\" class='btn btn-warning btn-xs btn-flat' href='posts.php?reset_views={$id}'>Reset Views</a></td>";
+                    // <a rel={$id} class='btn btn-danger btn-xs btn-flat delete_link' href='javascript:void(0)'>Delete</a>"
+                    ?>
+                    <form action="" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $id ?>">
+                        <?php 
+                            echo '<td><input class="btn btn-danger btn-xs" type="submit" name="delete" value="Delete"></td>';
+                        ?>
+                    </form>
+                    <?php 
+                    // echo "<td>
+                            
+                    //         <a onClick=\"javscript: return confirm('Are you sure want to reset?');\" class='btn btn-warning btn-xs btn-flat' href='posts.php?reset_views={$id}'>Reset Views</a>
+                    //     </td>";
                     echo "</tr>";
                     // <a onClick=\"javscript: return confirm('Are you sure want to delete?');\" class='btn btn-danger btn-xs btn-flat' href='posts.php?delete={$id}'>Delete</a>
                 }
@@ -154,11 +167,11 @@ if(isset($_POST['submit_bulk'])) {
 </form>
 
 <?php 
-    if(isset($_GET['delete'])) {
+    if(isset($_POST['delete'])) {
         if(isset($_SESSION['roles'])){
             if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
 
-                $id = escape($_GET['delete']);
+                $id = escape($_POST['id']);
         
                 $query = "DELETE FROM posts WHERE id = $id";
                 $stmt = mysqli_query($connection, $query);
