@@ -5,6 +5,10 @@ function escape($string) {
     return mysqli_real_escape_string($connection, trim($string));
 }
 
+function redirect($location) {
+    return header("Location: ".$location."");
+}
+
 function confirm($result) {
     global $connection;
     if(!$result) {
@@ -135,6 +139,68 @@ function validateUsers($username){
         return false;
     }
 
+}
+
+function validateEmails($email){
+    global $connection;
+    $query = "SELECT email FROM users WHERE email = '$email'";
+    $stmt = mysqli_query($connection, $query);
+    confirm($stmt);
+
+    if(mysqli_num_rows($stmt) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+function registerUsers($username, $email, $password) {
+    global $connection;
+
+    $username = mysqli_real_escape_string($connection, $username);
+    $email = mysqli_real_escape_string($connection, $email);
+    $password = mysqli_real_escape_string($connection, $password);
+
+    $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+    $queryRegister = "INSERT INTO users(username, email, password, roles) 
+    VALUES('$username', '$email', '$password', 'subscriber')";
+    $stmtRegister = mysqli_query($connection, $queryRegister);
+    confirm($stmtRegister);
+}
+
+function loginUsers($username, $password) {
+    global $connection;
+
+    $username = mysqli_real_escape_string($connection, $username);
+    $password = mysqli_real_escape_string($connection, $password);
+
+    $query = "SELECT * FROM users WHERE username = '{$username}'";
+    $stmt = mysqli_query($connection, $query);
+    confirm($stmt);
+    while($row = mysqli_fetch_assoc($stmt)){
+        $id_user = $row['id_user'];
+        $user_name = $row['username'];
+        $user_password = $row['password'];
+        $first_name = $row['first_name'];
+        $last_name = $row['last_name'];
+        $roles = $row['roles'];
+    }
+    // $password = crypt($password, $user_password);
+
+    if(password_verify($password, $user_password)) {
+        $_SESSION['id_user'] = $id_user;
+        $_SESSION['username'] = $user_name;
+        $_SESSION['first_name'] = $first_name;
+        $_SESSION['last_name'] = $last_name;
+        $_SESSION['roles'] = $roles;
+        redirect('../admin/index.php');
+        // header("Location: ../admin");
+    } else {
+        redirect('../index.php');
+        // header("Location: ../index.php");
+    }
 }
 
 ?>

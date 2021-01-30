@@ -26,15 +26,13 @@
                         $page_1 = ($page * $perPage) - $perPage;
                     }
 
-                    if(isset($_SESSION['roles'])) {
-                        if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
-                            $queryTotal = "SELECT * FROM posts";
-
-                        }
+                    if(isset($_SESSION['roles']) && $_SESSION['roles'] == 'ADMIN' || $_SESSION['roles'] == 'admin') {
+                        $queryTotal = "SELECT * FROM posts";
                     } else {
                         $queryTotal = "SELECT * FROM posts WHERE status = 'published'";
                     }
                     $stmtTotal = mysqli_query($connection, $queryTotal);
+                    confirm($stmtTotal);
                     $countPost = mysqli_num_rows($stmtTotal);
                     if($countPost < 1) {
                         echo "<h2 class='text-center'>No Posts Available</h2>";

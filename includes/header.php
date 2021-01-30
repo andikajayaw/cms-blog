@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php include_once "admin/functions.php" ?>
+<?php include "admin/functions.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
