@@ -1,45 +1,32 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
+
 <?php  
     if(isset($_POST['submit'])) {
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
         if(!empty($username) && !empty($email) && !empty($password)){
-            $username = mysqli_real_escape_string($connection, $username);
-            $email = mysqli_real_escape_string($connection, $email);
-            $password = mysqli_real_escape_string($connection, $password);
+            if(validateUsers($username)) {
+                $message = "Username already exist!";
+            } else {
+                $username = mysqli_real_escape_string($connection, $username);
+                $email = mysqli_real_escape_string($connection, $email);
+                $password = mysqli_real_escape_string($connection, $password);
 
-            $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
-    
-            // $query = "SELECT rand_salt FROM users";
-            // $stmt = mysqli_query($connection, $query);
-    
-            // if(!$stmt) {
-            //     die("QUERY FAILED ".mysqli_error($connection));
-            // }
-    
-            // $row = mysqli_fetch_assoc($stmt);
-            // $randSalt = $row['rand_salt'];
-
-            // $password = crypt($password, $randSalt);
-    
-            $queryRegister = "INSERT INTO users(username, email, password, roles) 
-            VALUES('$username', '$email', '$password', 'subscriber')";
-            $stmtRegister = mysqli_query($connection, $queryRegister);
-            if(!$stmtRegister) {
-                die("QUERY FAILED ".mysqli_error($connection));
+                $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+        
+                $queryRegister = "INSERT INTO users(username, email, password, roles) 
+                VALUES('$username', '$email', '$password', 'subscriber')";
+                $stmtRegister = mysqli_query($connection, $queryRegister);
+                if(!$stmtRegister) {
+                    die("QUERY FAILED ".mysqli_error($connection));
+                }
+                $message = "New user has been registered!";
             }
-            $message = "New user has been registered!";
-            // echo "<p class='bg-success'>New user has been registered!</p>";
         } else {
             $message = "Field cannot be empty!";
         }
-
-        // while($row = mysqli_fetch_assoc($stmt)){
-        //     $randSalt = $row['rand_salt'];
-        //     echo $randSalt;
-        // }
     
     } else {
         $message = '';

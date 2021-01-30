@@ -107,4 +107,34 @@ function postStatus($table, $column, $status) {
     return $result;
 }
 
+function isAdmin($username = '') {
+    global $connection;
+
+    $query = "SELECT roles from users WHERE username = '$username'";
+    $stmt = mysqli_query($connection, $query);
+    confirm($stmt);
+
+    $row = mysqli_fetch_assoc($stmt);
+
+    if($row['roles'] == 'ADMIN' || $row['roles'] == 'admin') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validateUsers($username){
+    global $connection;
+    $query = "SELECT username FROM users WHERE username = '$username'";
+    $stmt = mysqli_query($connection, $query);
+    confirm($stmt);
+
+    if(mysqli_num_rows($stmt) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
 ?>
