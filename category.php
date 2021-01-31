@@ -14,35 +14,48 @@
                 <?php 
                     if(isset($_GET['id_category'])) {
                         $id_category = $_GET['id_category'];
-                        if(isset($_SESSION['roles'])) {
-                            if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
-                                $query = "SELECT a.* FROM posts a 
-                                WHERE a.id_category = {$id_category}";
+                        if(isset($_SESSION['username'])) {
+                            if(isAdmin($_SESSION['username'])) {
+                                $query = "SELECT id, id_category, title, author, username, date, image, description, tags, status FROM posts 
+                                WHERE id_category = ?";
+                                // {$id_category}
+                                $stmt = mysqli_prepare($connection, $query);
+                                mysqli_stmt_bind_param($stmt, "i", $id_category);
+                                mysqli_stmt_execute($stmt);
+                                mysqli_stmt_store_result($stmt);
+                                if(mysqli_stmt_num_rows($stmt) === 0) {
+                                    echo "<h2 class='text-center'>No Posts from this Categories Available</h2>";
+                                } 
+                                mysqli_stmt_bind_result($stmt, $id, $id_category, $title, $author, $username, $date, $image, $description, $tags, $status);
+                                // $stmt = $stmt;
                             }
                         } else {
-                            // $query = "SELECT * FROM posts WHERE id = {$id} AND status = 'published'";
-                            $query = "SELECT a.* FROM posts a 
-                            WHERE a.id_category = {$id_category} AND a.status = 'published'";
+                            $query = "SELECT id, id_category, title, author, username, date, image, description, tags, status FROM posts 
+                            WHERE id_category = ? AND status = ?";
+                            $published = 'published';
+                            // {$id_category}
+                            $stmt = mysqli_prepare($connection, $query);
+                            mysqli_stmt_bind_param($stmt, "is", $id_category, $published);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_store_result($stmt);
+                            if(mysqli_stmt_num_rows($stmt) === 0) {
+                                echo "<h2 class='text-center'>No Posts from this Categories Available</h2>";
+                            } 
+                            mysqli_stmt_bind_result($stmt, $id, $id_category, $title, $author, $username, $date, $image, $description, $tags, $status);
+                            // $stmt = $stmt2;
                         }
-                        
-                        $stmt = mysqli_query($connection, $query);
 
-                        if(mysqli_num_rows($stmt) < 1) {
-                            echo "<h2 class='text-center'>No Posts from this Categories Available</h2>";
-                        } else {
-
-                        }
-
-                        while($row = mysqli_fetch_assoc($stmt)){
-                            $id_post = $row['id'];
-                            $title = $row['title'];
-                            $author = $row['author'];
-                            $date = $row['date'];
-                            $image = $row['image'];
-                            $description = substr($row['description'], 0, 150);
-                            $tags = $row['tags'];
-                            $image = $row['image'];
-                            $status = $row['status'];
+                        while(mysqli_stmt_fetch($stmt)):
+                            // $id_post = $row['id'];
+                            // $title = $row['title'];
+                            // $author = $row['author'];
+                            // $username = $row['username'];
+                            // $date = $row['date'];
+                            // $image = $row['image'];
+                            // $description = substr($row['description'], 0, 150);
+                            // $tags = $row['tags'];
+                            // $image = $row['image'];
+                            // $status = $row['status'];
                             ?>
 
 
@@ -53,10 +66,16 @@
 
                             <!-- First Blog Post -->
                             <h2>
-                                <a href="post.php?id=<?php echo $id_post; ?>"><?php echo $title; ?></a>
+                                <a href="post.php?id=<?php echo $id; ?>"><?php echo $title; ?></a>
                             </h2>
                             <p class="lead">
-                                by <a href="index.php"><?php echo $author; ?></a>
+                                by <a href="index.php"><?php 
+                                    if(!empty($author)){
+                                        echo "<td>{$author}</td>";
+                                    } else if(!empty($user)) {
+                                        echo "<td>{$user}</td>";
+                                    }
+                                ?></a>
                             </p>
                             <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $date; ?></p>
                             <hr>
@@ -66,7 +85,7 @@
                             <a class="btn btn-primary" href="post.php?id=<?php echo $id_post; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                             <hr>
-                        <?php } 
+                        <?php endwhile;
                     } else {
                         header("Location: index.php");
                     }?>

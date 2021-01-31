@@ -25,9 +25,11 @@
                     } else{
                         $page_1 = ($page * $perPage) - $perPage;
                     }
-
-                    if(isset($_SESSION['roles']) && $_SESSION['roles'] == 'ADMIN' || $_SESSION['roles'] == 'admin') {
-                        $queryTotal = "SELECT * FROM posts";
+                    
+                    if(isset($_SESSION['username'])) {
+                        if(isAdmin($_SESSION['username'])) {
+                            $queryTotal = "SELECT * FROM posts";
+                        }
                     } else {
                         $queryTotal = "SELECT * FROM posts WHERE status = 'published'";
                     }
