@@ -23,13 +23,13 @@
             if(isset($_POST['update'])) {
                 // $id_update = $_POST['id'];
                 $title_update = $_POST['title'];
-                $queryUpdate = "UPDATE categories SET title = '{$title_update}' WHERE id_category = '{$id_update}'";
-                $stmt = mysqli_query($connection, $queryUpdate);
-                if(!$stmt) {
-                    die("QUERY FAILED".mysqli_error($connection));
-                }
-                // echo "<p>Category updated! </p>";
-                header("Location: categories.php");
+                $queryUpdate = "UPDATE categories SET title = ? WHERE id_category = ?";
+                $stmt = mysqli_prepare($connection, $queryUpdate);
+                mysqli_stmt_bind_param($stmt, "si", $title_update, $id_update);
+                mysqli_stmt_execute($stmt);
+                confirm($stmt);
+                redirect('categories.php');
+                mysqli_stmt_close($stmt);
             }
         ?>
     </div>

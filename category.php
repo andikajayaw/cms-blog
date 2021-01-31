@@ -45,18 +45,7 @@
                             // $stmt = $stmt2;
                         }
 
-                        while(mysqli_stmt_fetch($stmt)):
-                            // $id_post = $row['id'];
-                            // $title = $row['title'];
-                            // $author = $row['author'];
-                            // $username = $row['username'];
-                            // $date = $row['date'];
-                            // $image = $row['image'];
-                            // $description = substr($row['description'], 0, 150);
-                            // $tags = $row['tags'];
-                            // $image = $row['image'];
-                            // $status = $row['status'];
-                            ?>
+                        while(mysqli_stmt_fetch($stmt)): ?>
 
 
                             <h1 class="page-header">
@@ -85,9 +74,10 @@
                             <a class="btn btn-primary" href="post.php?id=<?php echo $id_post; ?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
                             <hr>
-                        <?php endwhile;
+                        <?php endwhile; mysqli_stmt_close($stmt);
                     } else {
-                        header("Location: index.php");
+                        // header("Location: index.php");
+                        redirect('index.php');
                     }?>
             </div>
 

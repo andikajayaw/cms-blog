@@ -21,16 +21,15 @@ function insert_categories() {
     global $connection;
     if(isset($_POST['submit'])) {
         $category_title = $_POST['title'];
-        // print_r($category_title);
-
         if($category_title == '' || empty($category_title)) {
             echo "Input the category title";
         } else {
-            $queryInsert = "INSERT INTO categories(title) VALUES('{$category_title}')";
-            $stmt = mysqli_query($connection, $queryInsert);
-            if(!$stmt) {
-                die('QUERY FAILED '.mysqli_error($connection));
-            } 
+            $queryInsert = "INSERT INTO categories(title) VALUES(?)";
+            $stmt = mysqli_prepare($connection, $queryInsert);
+            mysqli_stmt_bind_param($stmt, "s", $category_title);
+            mysqli_stmt_execute($stmt);
+            confirm($stmt);
+            mysqli_stmt_close($stmt);
         }
     }
 }
