@@ -6,7 +6,32 @@ function escape($string) {
 }
 
 function redirect($location) {
-    return header("Location: ".$location."");
+    header("Location: ".$location."");
+    exit;
+
+}
+
+function isMethod($method=null) {
+    if($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isLogin(){
+    if(isset($_SESSION['roles'])){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function loginRedirect($location = null){
+    if(isLogin()) {
+        redirect($location);
+    }
+
 }
 
 function confirm($result) {
@@ -194,10 +219,11 @@ function loginUsers($username, $password) {
         $_SESSION['first_name'] = $first_name;
         $_SESSION['last_name'] = $last_name;
         $_SESSION['roles'] = $roles;
-        redirect('../admin/index.php');
+        redirect('/cms-php/admin/');
         // header("Location: ../admin");
     } else {
-        redirect('../index.php');
+        return false;
+        // redirect('../index.php');
         // header("Location: ../index.php");
     }
 }

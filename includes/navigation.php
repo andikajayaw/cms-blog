@@ -45,9 +45,19 @@
                         }
 
                     ?>
-                    <li>
-                        <a href="/cms-php/admin">Admin</a>
-                    </li>
+                    <?php if(isLogin()): ?>
+                        <li>
+                            <a href="/cms-php/admin">Admin</a>
+                        </li>
+
+                        <li>
+                            <a href="/cms-php/includes/logout.php">Logout</a>
+                        </li>
+                    <?php else: ?>
+                        <li>
+                            <a href="/cms-php/login">Login</a>
+                        </li>
+                    <?php endif; ?>
                     <?php 
                         if(isset($_SESSION['roles'])) {
                             if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
