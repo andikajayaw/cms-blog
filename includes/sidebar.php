@@ -70,7 +70,7 @@
                 </div><!-- /.form-group -->
                 <br>
                 <div class="form-group">
-                    <a href="/cms-php/forgot">Forgot Password?</a>
+                    <a href="forgot.php?forgot=<?php echo uniqid(); ?>">Forgot Password?</a>
                 </div><!-- /.form-group -->
             </form><!-- /.form -->
         <?php endif; ?>
