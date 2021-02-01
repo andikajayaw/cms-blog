@@ -1,4 +1,14 @@
 <?php include_once "db.php"; ?>
+
+<?php  
+    if(isMethod('post')){
+        if(isset($_POST['username']) && isset($_POST['password'])) {
+            loginUsers($_POST['username'], $_POST['password']);
+        } else {
+            redirect('/cms-php/index');
+        }
+    }
+?>
 <div class="col-md-4">
     <?php 
 
@@ -48,7 +58,7 @@
             <a class="btn btn-danger btn-block" href="includes/logout.php">Logout</a>
         <?php else: ?>
             <h4>Login</h4>
-            <form action="includes/login.php" method="POST">
+            <form method="POST">
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" placeholder="Enter username">
                 </div><!-- /.form-group -->
@@ -59,6 +69,9 @@
                     <input type="submit" class="btn btn-primary" name="login" value="Login">
                 </div><!-- /.form-group -->
                 <br>
+                <div class="form-group">
+                    <a href="/cms-php/forgot">Forgot Password?</a>
+                </div><!-- /.form-group -->
             </form><!-- /.form -->
         <?php endif; ?>
     </div>

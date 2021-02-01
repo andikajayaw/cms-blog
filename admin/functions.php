@@ -197,8 +197,12 @@ function registerUsers($username, $email, $password) {
 function loginUsers($username, $password) {
     global $connection;
 
-    $username = mysqli_real_escape_string($connection, $username);
-    $password = mysqli_real_escape_string($connection, $password);
+    if($password == '' || $username == '') {
+        redirect('/cms-php/');
+    } else {
+        $username = mysqli_real_escape_string($connection, $username);
+        $password = mysqli_real_escape_string($connection, $password);
+    }
 
     $query = "SELECT * FROM users WHERE username = '{$username}'";
     $stmt = mysqli_query($connection, $query);
