@@ -64,7 +64,7 @@
                         <!-- First Blog Post -->
                         <!-- <h1><?php echo $countPost; ?></h1> -->
                         <h2>
-                            <a href="post.php?id=<?php echo $id_post; ?>"><?php echo $title; ?></a>
+                            <a href="/cms-php/post/<?php echo $id_post; ?>"><?php echo $title; ?></a>
                         </h2>
                         <p class="lead">
                             by <a href="author_post.php?author=<?php echo $author; ?>&id=<?php echo $id_post; ?>"><?php echo $author; ?></a>

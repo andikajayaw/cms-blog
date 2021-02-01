@@ -55,7 +55,7 @@
 
                             <!-- First Blog Post -->
                             <h2>
-                                <a href="post.php?id=<?php echo $id; ?>"><?php echo $title; ?></a>
+                                <a href="/cms-php/post/<?php echo $id; ?>"><?php echo $title; ?></a>
                             </h2>
                             <p class="lead">
                                 by <a href="index.php"><?php 

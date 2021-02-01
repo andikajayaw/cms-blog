@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./index.php">CMS BLOG</a>
+                <a class="navbar-brand" href="/cms-php">CMS BLOG</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -30,8 +30,8 @@
                             $active_contact = '';
 
                             $page_name = basename($_SERVER['PHP_SELF']);
-                            $registration_page = 'registration.php';
-                            $contact_page = 'contact.php';
+                            $registration_page = 'registration';
+                            $contact_page = 'contact';
 
                             if(isset($_GET['id_category']) && $_GET['id_category'] == $id) {
                                 $category_class = 'active';
@@ -41,31 +41,31 @@
                                 $active_contact = 'active';
                             }
 
-                            echo "<li class='$category_class'><a href='category.php?id_category={$id}'>{$title}</a></li>";
+                            echo "<li class='$category_class'><a href='/cms-php/category/{$id}'>{$title}</a></li>";
                         }
 
                     ?>
                     <li>
-                        <a href="admin">Admin</a>
+                        <a href="/cms-php/admin">Admin</a>
                     </li>
                     <?php 
                         if(isset($_SESSION['roles'])) {
-                            if($_SESSION['roles'] == 'admin') {
+                            if($_SESSION['roles'] == 'admin' || $_SESSION['roles'] == 'ADMIN') {
                                 if(isset($_GET['id'])) {
                                     $id = $_GET['id'];
                                     echo 
                                     "<li>
-                                        <a href='admin/posts.php?source=edit_post&id={$id}'>Edit Post</a>
+                                        <a href='/cms-php/admin/posts.php?source=edit_post&id={$id}'>Edit Post</a>
                                     </li>";
                                 }
                             }
                         }
                     ?>
                     <li class="<?php echo $active_registration; ?>">
-                        <a href="registration.php">Register</a>
+                        <a href="/cms-php/registration">Register</a>
                     </li>
                     <li class="<?php echo $active_contact; ?>">
-                        <a href="contact.php">Contact</a>
+                        <a href="/cms-php/contact">Contact</a>
                     </li>
                 </ul>
             </div>
