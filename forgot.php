@@ -8,8 +8,6 @@
     include "includes/header.php"; 
  
     require './vendor/autoload.php';
-    // require './vendor/phpmailer/phpmailer/PHPMailer.php';
-    require './classes/config.php';
 
 ?>
 
@@ -49,6 +47,7 @@
                     $mail->SMTPAuth   = true;                                 // Enable SMTP authentication
                     
                     $mail->isHTML(true);
+                    $mail->CharSet = ' UTF-8';
     
                     $mail->setFrom('admin2@mail.com', 'Andika Jaya');
                     $mail->addAddress($email);

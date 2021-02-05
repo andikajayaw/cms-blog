@@ -13,11 +13,13 @@ foreach($db as $key => $value) {
 $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 // $connection = mysqli_connect('localhost', 'root', '', 'cms');
 
+$query = "SET NAMES utf8";
+mysqli_query($connection, $query);
 
-if($connection) {
-    // echo "Connected!";
-} else {
-    die(mysqli_error($connection));
-}
+// if($connection) {
+//     // echo "Connected!";
+// } else {
+//     die(mysqli_error($connection));
+// }
 
 ?>
