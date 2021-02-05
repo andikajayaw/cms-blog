@@ -13,7 +13,7 @@
 
 <?php 
 
-    if(!isMethod('get') && !isset($_GET['forgot'])){
+    if(!isset($_GET['forgot'])){
         redirect('/cms-php/');
     }
 
@@ -52,9 +52,11 @@
                     $mail->setFrom('admin2@mail.com', 'Andika Jaya');
                     $mail->addAddress($email);
                     $mail->Subject = 'This is a test email'; 
-                    $mail->Body = 'Email Body';
+                    $mail->Body = 
+                    // " <p>Please click this <a href='http://localhost/cms-php/reset.php?email=$email&token=$token'>link</a> to reset your password</p> ";
+                    '<p>Please click this <a href="http://localhost/cms-php/reset.php?email='.$email.'&token='.$token.'">link</a> to reset your password</p>';
                     $mail->send();
-                    echo "Email sent!";
+                    $emailSent = true;
                 } catch(Exception $e) {
                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }
@@ -63,6 +65,9 @@
     }
 
 ?>
+
+<!-- Navigation -->
+<?php include "includes/navigation.php" ?>
 
 <!-- Page Content -->
 <div class="container">
@@ -74,8 +79,8 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="text-center">
-
-
+                            
+                            <?php if(!isset($emailSent)) : ?>
                                 <h3><i class="fa fa-lock fa-4x"></i></h3>
                                 <h2 class="text-center">Forgot Password?</h2>
                                 <p>You can reset your password here.</p>
@@ -100,6 +105,9 @@
                                     </form>
 
                                 </div><!-- Body-->
+                            <?php else: ?>
+                                <h2 class="text-center">Please check your email!</h2>
+                            <?php endif; ?>
 
                         </div>
                     </div>
