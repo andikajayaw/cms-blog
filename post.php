@@ -44,7 +44,6 @@
                             $image = $row['image'];
                             $description = $row['description'];
                             $tags = $row['tags'];
-                            $image = $row['image'];
                             $status = $row['status'];
                             ?>
 
@@ -63,7 +62,7 @@
                             </p>
                             <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $date; ?></p>
                             <hr>
-                            <img class="img-responsive" src="images/<?php echo $image; ?>" alt="">
+                            <img class="img-responsive" src="../images/<?php echo imagePlaceholder($image); ?>" alt="">
                             <hr>
                             <p><?php echo $description; ?></p>
                             <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->

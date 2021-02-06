@@ -27,6 +27,22 @@ function isLogin(){
     }
 }
 
+function currentUser() {
+    if(isset($_SESSION['username'])) {
+        return $_SESSION['username'];
+    } else {
+        return false;
+    }
+}
+
+function imagePlaceholder($image=''){
+    if(!$image) {
+        return 'placeholder.png';
+    } else {
+        return $image;
+    }
+}
+
 function loginRedirect($location = null){
     if(isLogin()) {
         redirect($location);

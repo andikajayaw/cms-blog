@@ -72,7 +72,7 @@
                         <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $date; ?></p>
                         <hr>
                         <a href="post.php?id=<?php echo $id_post; ?>">
-                            <img class="img-responsive" src="images/<?php echo $image; ?>" alt="">
+                            <img class="img-responsive" src="images/<?php echo imagePlaceholder($image); ?>" alt="">
                         </a>
                         <hr>
                         <p><?php echo $description; ?>...</p>

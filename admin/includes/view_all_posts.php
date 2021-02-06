@@ -100,9 +100,11 @@ if(isset($_POST['submit_bulk'])) {
         </thead>
         <tbody>
             <?php 
+                $user = currentUser();
                 $query = "SELECT a.*, b.title as title_category, c.comment_total, c.id_post FROM posts a 
                         LEFT JOIN categories b ON a.id_category = b.id_category 
                         LEFT JOIN (SELECT id_post, COUNT(*) as comment_total FROM comments GROUP BY id_post) c ON c.id_post = a.id 
+                        WHERE a.username = '$user'
                         ORDER BY id DESC";
                 $stmt = mysqli_query($connection, $query);
 
@@ -114,7 +116,7 @@ if(isset($_POST['submit_bulk'])) {
                     $user = $row['username'];
                     $category_title = $row['title_category'];
                     $status = $row['status'];
-                    $image = $row['image'];
+                    $image = imagePlaceholder($row['image']);
                     $tags = $row['tags'];
                     $total_comment = $row['total_comment'];
                     if(isset($row['comment_total'])) {
