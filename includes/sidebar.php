@@ -2,10 +2,12 @@
 
 <?php  
     if(isMethod('post')){
-        if(isset($_POST['username']) && isset($_POST['password'])) {
-            loginUsers($_POST['username'], $_POST['password']);
-        } else {
-            redirect('/cms-php/index');
+        if(isset($_POST['login'])) {
+            if(isset($_POST['username']) && isset($_POST['password'])) {
+                loginUsers($_POST['username'], $_POST['password']);
+            } else {
+                redirect('/cms-php/index');
+            }
         }
     }
 ?>
